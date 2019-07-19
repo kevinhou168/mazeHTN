@@ -6,7 +6,7 @@ HELPER FUNCTIONS
 
 
 def is_done(state, a):
-    if state.x[a] == 6 and state.y[a] == 1:
+    if state.x[a] == state.goal_x and state.y[a] == state.goal_y:
         return True
     else:
         return False
@@ -14,16 +14,16 @@ def is_done(state, a):
 
 def is_dead_end(state, a):
     paths = 0
-    if state.maze[state.y[a] + 1][state.x[a]] == 0:
+    if state.maze.cell_at(state.x[a], state.y[a]).has_wall('N'):
         paths += 1
-    elif state.maze[state.y[a] - 1][state.x[a]] == 0:
+    elif state.maze.cell_at(state.x[a], state.y[a]).has_wall('S'):
         paths += 1
-    elif state.maze[state.y[a]][state.x[a] - 1] == 0:
+    elif state.maze.cell_at(state.x[a], state.y[a]).has_wall('E'):
         paths += 1
-    elif state.maze[state.y[a]][state.x[a] + 1] == 0:
+    elif state.maze.cell_at(state.x[a], state.y[a]).has_wall('W'):
         paths += 1
 
-    if paths > 1 and state.x[a] != 5 and state.y[a] != 7:
+    if paths > 1 and state.x[a] != 0 and state.y[a] != 0:
         return False
     else:
         return True

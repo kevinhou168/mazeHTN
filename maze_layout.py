@@ -22,6 +22,9 @@ class Cell:
         self.x, self.y = x, y
         self.walls = {'N': True, 'S': True, 'E': True, 'W': True}
 
+    def has_wall(self, direction):
+        return self.walls[direction]
+
     def has_all_walls(self):
         """Does this cell still have all its walls?"""
 
@@ -163,7 +166,7 @@ class Maze:
             nv += 1
 
 # Maze dimensions (ncols, nrows)
-nx, ny = 40, 40
+nx, ny = 10, 10
 # Maze entry position
 ix, iy = 0, 0
 

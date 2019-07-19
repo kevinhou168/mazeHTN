@@ -20,7 +20,8 @@ OPERATORS
 
 
 def up(state, a):
-    if state.maze[state.y[a] - 1][state.x[a]] == 0 and (not already_through(state, a, state.y[a] - 1, state.x[a])):
+    if state.maze.cell_at(state.x[a], state.y[a]).has_wall('N') and \
+            (not already_through(state, a, state.y[a] - 1, state.x[a])):
         state.y[a] -= 1
         state.count[a] += 1
         state.xpath[a].append(state.x[a])
@@ -31,7 +32,8 @@ def up(state, a):
 
 
 def down(state, a):
-    if state.maze[state.y[a] + 1][state.x[a]] == 0 and (not already_through(state, a, state.y[a] + 1, state.x[a])):
+    if state.maze.cell_at(state.x[a], state.y[a]).has_wall('S') and \
+            (not already_through(state, a, state.y[a] + 1, state.x[a])):
         state.y[a] += 1
         state.count[a] += 1
         state.xpath[a].append(state.x[a])
@@ -42,7 +44,8 @@ def down(state, a):
 
 
 def left(state, a):
-    if state.maze[state.y[a]][state.x[a] - 1] == 0 and (not already_through(state, a, state.y[a], state.x[a] - 1)):
+    if state.maze.cell_at(state.x[a], state.y[a]).has_wall('W') and \
+            (not already_through(state, a, state.y[a], state.x[a] - 1)):
         state.x[a] -= 1
         state.count[a] += 1
         state.xpath[a].append(state.x[a])
@@ -53,7 +56,8 @@ def left(state, a):
 
 
 def right(state, a):
-    if state.maze[state.y[a]][state.x[a] + 1] == 0 and (not already_through(state, a, state.y[a], state.x[a] + 1)):
+    if state.maze.cell_at(state.x[a], state.y[a]).has_wall('E') and \
+            (not already_through(state, a, state.y[a], state.x[a] + 1)):
         state.x[a] += 1
         state.count[a] += 1
         state.xpath[a].append(state.x[a])
