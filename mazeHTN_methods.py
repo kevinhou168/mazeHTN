@@ -6,7 +6,7 @@ HELPER FUNCTIONS
 
 
 def is_done(state, a):
-    if state.x[a] == state.goal_x and state.y[a] == state.goal_y:
+    if state.x[a] == state.goal_x[a] and state.y[a] == state.goal_y[a]:
         return True
     else:
         return False

@@ -58,17 +58,17 @@ class Maze:
     def __str__(self):
         """Return a (crude) string representation of the maze."""
 
-        maze_rows = ['-' * nx*2]
-        for y in range(ny):
+        maze_rows = ['-' * self.nx*2]
+        for y in range(self.ny):
             maze_row = ['|']
-            for x in range(nx):
+            for x in range(self.nx):
                 if self.maze_map[x][y].walls['E']:
                     maze_row.append(' |')
                 else:
                     maze_row.append('  ')
             maze_rows.append(''.join(maze_row))
             maze_row = ['|']
-            for x in range(nx):
+            for x in range(self.nx):
                 if self.maze_map[x][y].walls['S']:
                     maze_row.append('-+')
                 else:
@@ -76,7 +76,7 @@ class Maze:
             maze_rows.append(''.join(maze_row))
         return '\n'.join(maze_rows)
 
-    def write_svg(self, filename):
+    def write_svg(self, filename, maze, nx, ny):
         """Write an SVG image of the maze to filename."""
 
         aspect_ratio = self.nx / self.ny
@@ -136,8 +136,8 @@ class Maze:
         neighbours = []
         for direction, (dx,dy) in delta:
             x2, y2 = cell.x + dx, cell.y + dy
-            if (0 <= x2 < nx) and (0 <= y2 < ny):
-                neighbour = maze.cell_at(x2, y2)
+            if (0 <= x2 < self.nx) and (0 <= y2 < self.ny):
+                neighbour = self.cell_at(x2, y2)
                 if neighbour.has_all_walls():
                     neighbours.append((direction, neighbour))
         return neighbours
@@ -146,7 +146,7 @@ class Maze:
         # Total number of cells.
         n = self.nx * self.ny
         cell_stack = []
-        current_cell = self.cell_at(ix, iy)
+        current_cell = self.cell_at(self.ix, self.iy)
         # Total number of visited cells during maze construction.
         nv = 1
 
@@ -165,13 +165,4 @@ class Maze:
             current_cell = next_cell
             nv += 1
 
-# Maze dimensions (ncols, nrows)
-nx, ny = 10, 10
-# Maze entry position
-ix, iy = 0, 0
-
-maze = Maze(nx, ny, ix, iy)
-maze.make_maze()
-
-print(maze)
 #maze.write_svg('maze.svg')
