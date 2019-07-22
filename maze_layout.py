@@ -76,7 +76,7 @@ class Maze:
             maze_rows.append(''.join(maze_row))
         return '\n'.join(maze_rows)
 
-    def write_svg(self, filename, maze, nx, ny):
+    def write_svg(self, filename, maze, nx, ny, path):
         """Write an SVG image of the maze to filename."""
 
         aspect_ratio = self.nx / self.ny
@@ -93,6 +93,19 @@ class Maze:
 
             print('<line x1="{}" y1="{}" x2="{}" y2="{}"/>'
                                 .format(x1, y1, x2, y2), file=f)
+
+        def write_path(path):
+            for step in path:
+                if step[0] is 'down':
+                    # Write red line going down
+                elif step[0] is 'up':
+                    # Write red line going up
+                elif step[0] is 'right':
+                    # Write red line going right
+                elif step[0] is 'left':
+                    # Write red line going left
+
+
 
         # Write the SVG image file for maze
         with open(filename, 'w') as f:
@@ -125,6 +138,7 @@ class Maze:
             print('<line x1="0" y1="0" x2="{}" y2="0"/>'.format(width), file=f)
             print('<line x1="0" y1="0" x2="0" y2="{}"/>'.format(height),file=f)
             print('</svg>', file=f)
+
 
     def find_valid_neighbours(self, cell):
         """Return a list of unvisited neighbours to cell."""
@@ -164,5 +178,3 @@ class Maze:
             cell_stack.append(current_cell)
             current_cell = next_cell
             nv += 1
-
-#maze.write_svg('maze.svg')
