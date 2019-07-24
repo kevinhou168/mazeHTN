@@ -76,7 +76,7 @@ class Maze:
             maze_rows.append(''.join(maze_row))
         return '\n'.join(maze_rows)
 
-    def write_svg(self, filename, maze, nx, ny, path):
+    def write_svg(self, filename, maze, path):
         """Write an SVG image of the maze to filename."""
 
         aspect_ratio = self.nx / self.ny
@@ -86,7 +86,7 @@ class Maze:
         height = 500
         width = int(height * aspect_ratio)
         # Scaling factors mapping maze coordinates to image coordinates
-        scy, scx = height / ny, width / nx
+        scy, scx = height / self.ny, width / self.nx
 
         def write_wall(f, x1, y1, x2, y2):
             """Write a single wall to the SVG image file handle f."""
@@ -94,15 +94,25 @@ class Maze:
             print('<line x1="{}" y1="{}" x2="{}" y2="{}"/>'
                                 .format(x1, y1, x2, y2), file=f)
 
-        def write_path(path):
+        def write_path():
+            x = scx/2
+            y = scy/2
             for step in path:
                 if step[0] is 'down':
+                    print('<line x1="{}" y1="{}" x2="{}" y2="{}"/>'
+                          .format(x1, y1, x2, y2), file=f)
                     # Write red line going down
                 elif step[0] is 'up':
+                    print('<line x1="{}" y1="{}" x2="{}" y2="{}"/>'
+                          .format(x1, y1, x2, y2), file=f)
                     # Write red line going up
                 elif step[0] is 'right':
+                    print('<line x1="{}" y1="{}" x2="{}" y2="{}"/>'
+                          .format(x1, y1, x2, y2), file=f)
                     # Write red line going right
                 elif step[0] is 'left':
+                    print('<line x1="{}" y1="{}" x2="{}" y2="{}"/>'
+                          .format(x1, y1, x2, y2), file=f)
                     # Write red line going left
 
 
@@ -125,20 +135,20 @@ class Maze:
             # Draw the "South" and "East" walls of each cell, if present (these
             # are the "North" and "West" walls of a neighbouring cell in
             # general, of course).
-            for x in range(nx):
-                for y in range(ny):
+            for x in range(self.nx):
+                for y in range(self.ny):
                     if maze.cell_at(x,y).walls['S']:
                         x1, y1, x2, y2 = x*scx, (y+1)*scy, (x+1)*scx, (y+1)*scy
                         write_wall(f, x1, y1, x2, y2)
                     if maze.cell_at(x,y).walls['E']:
                         x1, y1, x2, y2 = (x+1)*scx, y*scy, (x+1)*scx, (y+1)*scy
                         write_wall(f, x1, y1, x2, y2)
+
             # Draw the North and West maze border, which won't have been drawn
             # by the procedure above.
             print('<line x1="0" y1="0" x2="{}" y2="0"/>'.format(width), file=f)
             print('<line x1="0" y1="0" x2="0" y2="{}"/>'.format(height),file=f)
             print('</svg>', file=f)
-
 
     def find_valid_neighbours(self, cell):
         """Return a list of unvisited neighbours to cell."""

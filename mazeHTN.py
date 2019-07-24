@@ -24,5 +24,5 @@ state1.maze = maze
 state1.goal_x = {'me':state1.maze.nx-1}
 state1.goal_y = {'me':state1.maze.ny-1}
 
-pyhop(state1, [('FindGoal', 'me')], verbose=2)
-maze.write_svg('maze.svg')
+results = pyhop(state1, [('FindGoal', 'me')], verbose=2)
+maze.write_svg('maze.svg', maze, results)
