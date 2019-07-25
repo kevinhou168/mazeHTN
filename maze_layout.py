@@ -99,19 +99,19 @@ class Maze:
             y = scy/2
             for step in path:
                 if step[0] is 'down':
-                    print('<line x1="{}" y1="{}" x2="{}" y2="{}"/>'
+                    print('<line x1="{}" y1="{}" x2="{}" y2="{}" style="stroke:rgb(255,0,0);stroke-width:5"/>'
                           .format(x1, y1, x2, y2), file=f)
                     # Write red line going down
                 elif step[0] is 'up':
-                    print('<line x1="{}" y1="{}" x2="{}" y2="{}"/>'
+                    print('<line x1="{}" y1="{}" x2="{}" y2="{}" style="stroke:rgb(255,0,0);stroke-width:5"/>'
                           .format(x1, y1, x2, y2), file=f)
                     # Write red line going up
                 elif step[0] is 'right':
-                    print('<line x1="{}" y1="{}" x2="{}" y2="{}"/>'
+                    print('<line x1="{}" y1="{}" x2="{}" y2="{}" style="stroke:rgb(255,0,0);stroke-width:5"/>'
                           .format(x1, y1, x2, y2), file=f)
                     # Write red line going right
                 elif step[0] is 'left':
-                    print('<line x1="{}" y1="{}" x2="{}" y2="{}"/>'
+                    print('<line x1="{}" y1="{}" x2="{}" y2="{}" style="stroke:rgb(255,0,0);stroke-width:5"/>'
                           .format(x1, y1, x2, y2), file=f)
                     # Write red line going left
 
