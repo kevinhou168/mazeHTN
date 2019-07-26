@@ -95,24 +95,29 @@ class Maze:
                                 .format(x1, y1, x2, y2), file=f)
 
         def write_path():
+            """Write the solution path to the SVG image file handle f."""
             x = scx/2
             y = scy/2
             for step in path:
                 if step[0] is 'down':
                     print('<line x1="{}" y1="{}" x2="{}" y2="{}" style="stroke:rgb(255,0,0);stroke-width:5"/>'
-                          .format(x1, y1, x2, y2), file=f)
+                          .format(x, y, x, y+scy), file=f)
+                    y = y+scy
                     # Write red line going down
                 elif step[0] is 'up':
                     print('<line x1="{}" y1="{}" x2="{}" y2="{}" style="stroke:rgb(255,0,0);stroke-width:5"/>'
-                          .format(x1, y1, x2, y2), file=f)
+                          .format(x, y, x, y-scy), file=f)
+                    y = y-scy
                     # Write red line going up
                 elif step[0] is 'right':
                     print('<line x1="{}" y1="{}" x2="{}" y2="{}" style="stroke:rgb(255,0,0);stroke-width:5"/>'
-                          .format(x1, y1, x2, y2), file=f)
+                          .format(x, y, x+scx, y), file=f)
+                    x = x+scx
                     # Write red line going right
                 elif step[0] is 'left':
                     print('<line x1="{}" y1="{}" x2="{}" y2="{}" style="stroke:rgb(255,0,0);stroke-width:5"/>'
-                          .format(x1, y1, x2, y2), file=f)
+                          .format(x, y, x-scx, y), file=f)
+                    x = x-scy
                     # Write red line going left
 
 
@@ -144,6 +149,7 @@ class Maze:
                         x1, y1, x2, y2 = (x+1)*scx, y*scy, (x+1)*scx, (y+1)*scy
                         write_wall(f, x1, y1, x2, y2)
 
+            write_path()
             # Draw the North and West maze border, which won't have been drawn
             # by the procedure above.
             print('<line x1="0" y1="0" x2="{}" y2="0"/>'.format(width), file=f)
